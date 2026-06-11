@@ -1,0 +1,4 @@
+# Model checkpoints (~600 MB total). Requires Git LFS when cloning:
+#   git lfs install
+#   git clone <repo-url>
+*.pt filter=lfs diff=lfs merge=lfs -text

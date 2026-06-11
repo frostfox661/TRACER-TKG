@@ -1,0 +1,14 @@
+{
+  "local_models": {
+    "your-local-model": {
+      "path": "/path/to/local/model-or-huggingface-repo-id"
+    }
+  },
+  "api_profiles": {
+    "your-api-profile": {
+      "base_url": "https://your-openai-compatible-endpoint/v1",
+      "model": "your-remote-model-id",
+      "api_key": "your-api-key"
+    }
+  }
+}

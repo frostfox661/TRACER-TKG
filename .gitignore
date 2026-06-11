@@ -1,0 +1,27 @@
+# Counterfactual generation runs
+cf_gen/cf_runs/*
+!cf_gen/cf_runs/.gitkeep
+
+# Secrets
+cf_gen/llm.local.json
+
+# Training outputs
+models/
+result/
+logs/
+
+# Preprocessed caches (large; run scripts/prepare_data.sh)
+data/*/his_graph_for/
+data/*/his_graph_inv/
+data/*/his_dict/
+
+# Python
+__pycache__/
+*.pyc
+*.py[cod]
+.venv/
+venv/
+
+# IDE
+.idea/
+.vscode/

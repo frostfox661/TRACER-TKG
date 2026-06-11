@@ -1,0 +1,18 @@
+{
+  "ICEWS14": {
+    "42": {"filter_all_MRR": 0.497278, "filter_all_H@1": 0.385362, "filter_all_H@3": 0.558947, "filter_all_H@10": 0.712047},
+    "17": {"filter_all_MRR": 0.495798, "filter_all_H@1": 0.382920, "filter_all_H@3": 0.556030, "filter_all_H@10": 0.713404},
+    "29": {"filter_all_MRR": 0.496413, "filter_all_H@1": 0.384615, "filter_all_H@3": 0.553928, "filter_all_H@10": 0.711030}
+  },
+  "ICEWS05-15": {
+    "42": {"filter_all_MRR": 0.576852, "filter_all_H@1": 0.469128, "filter_all_H@3": 0.641554, "filter_all_H@10": 0.782534},
+    "17": {"filter_all_MRR": 0.577386, "filter_all_H@1": 0.469529, "filter_all_H@3": 0.642204, "filter_all_H@10": 0.782935},
+    "29": {"filter_all_MRR": 0.576531, "filter_all_H@1": 0.468338, "filter_all_H@3": 0.641608, "filter_all_H@10": 0.781841}
+  },
+  "ICEWS18": {
+    "42": {"filter_all_MRR": 0.360920, "filter_all_H@1": 0.249349, "filter_all_H@3": 0.407700, "filter_all_H@10": 0.582430}
+  },
+  "GDELT": {
+    "42": {"filter_all_MRR": 0.240737, "filter_all_H@1": 0.149067, "filter_all_H@3": 0.259377, "filter_all_H@10": 0.428022}
+  }
+}

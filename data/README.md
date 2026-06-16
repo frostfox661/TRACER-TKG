@@ -25,7 +25,8 @@ ICEWS and GDELT are subject to their respective providers' terms. The splits bun
 **Not stored in git (generated locally):** `his_graph_for/`, `his_graph_inv/`, `his_dict/` — create with:
 
 ```bash
-bash scripts/prepare_data.sh
+DATASETS=ICEWS14 bash scripts/prepare_data.sh   # one benchmark
+bash scripts/prepare_data.sh                    # all four (GDELT is slow)
 ```
 
 ## Counterfactual training files

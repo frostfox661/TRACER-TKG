@@ -29,7 +29,7 @@ Checkpoints (~600 MB) are tracked with **Git LFS**. After installing [Git LFS](h
 
 ```bash
 git lfs install
-git clone <repository-url>
+git clone https://github.com/frostfox661/TRACER.git
 cd TRACER
 ```
 
@@ -64,10 +64,14 @@ For other CUDA / driver versions, pick matching PyTorch and DGL wheels from [pyt
 Raw `train/valid/test` are already under `data/<DATASET>/`. **Before any training or evaluation**, build static word graphs and per-timestamp query subgraphs:
 
 ```bash
+# Quick path for a single benchmark (recommended for ICEWS14 eval, ~1 min):
+DATASETS=ICEWS14 bash scripts/prepare_data.sh
+
+# All four datasets (GDELT is large and may take hours):
 bash scripts/prepare_data.sh
 ```
 
-This runs `ent2word.py` (where present) and `get_his_subg.py`, creating `his_graph_for/`, `his_graph_inv/`, `his_dict/` inside each dataset folder.
+This runs `ent2word.py` (where present) and `get_his_subg.py`, creating `his_graph_for/`, `his_graph_inv/`, `his_dict/` inside each dataset folder. Override the dataset list with `DATASETS` (space-separated names), e.g. `DATASETS="ICEWS14 ICEWS18" bash scripts/prepare_data.sh`.
 
 Dataset sources and citation notes: [data/README.md](data/README.md).
 

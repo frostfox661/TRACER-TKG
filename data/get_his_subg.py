@@ -136,17 +136,15 @@ def get_data_with_t(data, tim):
     triples = [[quad[0], quad[1], quad[2]] for quad in data if quad[3] == tim]
     return np.array(triples)
 
-# dataset_list = ["ICEWS14", "ICEWS18","ICEWS05-15","GDELT"]
-#dataset_list = ["ICEWS14"]
-dataset_list = ["GDELT"]
-for dataset in dataset_list:
+DEFAULT_DATASETS = ["ICEWS14", "ICEWS18", "ICEWS05-15", "GDELT"]
+
+
+def build_history_caches(dataset):
     train_data, train_times = load_quadruples('./{}'.format(dataset), 'train.txt')
-    num_nodes,num_rels= get_total_number('./{}'.format(dataset), 'stat.txt')
-    print("the number of entity and relation", num_nodes,num_rels)
+    num_nodes, num_rels = get_total_number('./{}'.format(dataset), 'stat.txt')
+    print("the number of entity and relation", num_nodes, num_rels)
 
     train_list = split_by_time(train_data)
-    id_list = [_ for _ in range(len(train_list))]
-    sample_len = 3
 
     save_dir_subg = './{}/his_graph_for/'.format(dataset)
     save_dir_obj = './{}/his_graph_inv/'.format(dataset)
@@ -160,36 +158,46 @@ for dataset in dataset_list:
     mkdirs(save_dir_sub)
     mkdirs(save_dir_subg)
 
-    # f2 = open('./data/{}/copy_seq_graph/train_h_r_copy_seq.pkl'.format(args.dataset), 'rb')
-    # que_subg = pickle.load(f2)
     sr_to_sro = defaultdict(set)
     s_to_sro = defaultdict(set)
     sro_to_fre = dict()
-    subgraph_arr = []
-    subgraph_arr_inv = []
     print("------------{}sample history graph-------------------------------------".format(dataset))
-    all_list= train_list
+    all_list = train_list
     idx = [_ for _ in range(len(all_list))]
     for train_sample_num in tqdm(idx):
-        if train_sample_num == 0: continue
-        output = all_list[train_sample_num:train_sample_num+1]
-        history_graph = all_list[train_sample_num-1:train_sample_num]
+        if train_sample_num == 0:
+            continue
+        output = all_list[train_sample_num:train_sample_num + 1]
+        history_graph = all_list[train_sample_num - 1:train_sample_num]
         update_dict(history_graph[0], s_to_sro, sr_to_sro, num_rels)
         if train_sample_num > 0:
             his_list = all_list[:train_sample_num]
             subg_arr = np.concatenate(his_list)
-            sub_snap,sub_snap_inv = get_sample_from_history_graph(subg_arr,s_to_sro, sr_to_sro,sro_to_fre, output[0], num_nodes,num_rels)
+            sub_snap, sub_snap_inv = get_sample_from_history_graph(
+                subg_arr, s_to_sro, sr_to_sro, sro_to_fre, output[0], num_nodes, num_rels
+            )
         np.save('./{}/his_graph_for/train_s_r_{}.npy'.format(dataset, train_sample_num), sub_snap)
         np.save('./{}/his_graph_inv/train_o_r_{}.npy'.format(dataset, train_sample_num), sub_snap_inv)
     np.save('./{}/his_dict/train_s_r.npy'.format(dataset), sr_to_sro)
-    # print(sub_snap)
-    # arr = np.load('./{}/his_graph_for/train_s_r_{}.npy'.format(dataset, train_sample_num))
-    # print(arr)
-    # print(len(sr_to_sro.keys()))
-    # sr_dic = np.load('./{}/his_dict/train_s_r.npy'.format(dataset), allow_pickle=True).item()
-    # print(len(sr_dic.keys()))
 
-    
+
+def main(datasets):
+    for dataset in datasets:
+        build_history_caches(dataset)
+
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Build history subgraph caches for TKG datasets.")
+    parser.add_argument(
+        "--datasets",
+        nargs="+",
+        default=DEFAULT_DATASETS,
+        help="Dataset folder names under data/ (default: all four benchmarks).",
+    )
+    args = parser.parse_args()
+    main(args.datasets)
 
 # t1 = time.time()
 # que_subg_list = defaultdict(list)

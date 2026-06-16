@@ -29,8 +29,8 @@ Checkpoints (~600 MB) are tracked with **Git LFS**. After installing [Git LFS](h
 
 ```bash
 git lfs install
-git clone https://github.com/frostfox661/TRACER.git
-cd TRACER
+git clone https://github.com/frostfox661/TRACER-TKG.git
+cd TRACER-TKG
 ```
 
 If weights are missing after clone, run `git lfs pull` inside the repo.
